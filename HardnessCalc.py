@@ -19,20 +19,27 @@ NumberOfBonds = 2 #Number of Bonds (minimum of one)
 ############# CALCULATIONS ###############
 Hardness = 1.00 #DONOT CHANGE THIS VARIABLE
 H = 1.00 #DONOT CHANGE THIS VARIABLE
+ni = 0.00#DONOT CHANGE THIS VARIABLE
+
 for i in range(0,NumberOfBonds):
     print('Bond number: '+ str(i+1))
     Bondlength = input('Length of the bond [Angstroms]: ')
     N = input('Valence electrons per cubic angstrom of the bond: ')
     Fi = input('Ionocity of the Bond: ')
+    ntot = input('The number of bonds comprising this multicomponent crystal: ')
+    ntot = float(ntot)
     Fi = float(Fi)
     N = float(N)
     Bondlength = float(Bondlength)
     I = 1.191 * Fi
 
+    ni = ni + ntot
     H = (350 * pow(N, (2/3))/ (pow(2.71828, I) * pow(Bondlength,2.5)))
-    Hardness = Hardness * H
+    Hardness = Hardness * pow(H, ntot)
 
 
-Hardness = pow(Hardness, 0.5)
+
+Hardness = pow(Hardness, (1/ni))
 
 print('Total Hardness: '+ str(Hardness) + '[Gpa]')
+
